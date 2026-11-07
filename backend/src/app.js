@@ -85,9 +85,16 @@ app.get("/api/v1/health", (req, res) => {
     });
 });
 
+// Primary versioned API routes
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/jobs", jobRoutes);
 app.use("/api/v1", applicationRoutes);
+
+// Unversioned fallback route aliases (in case requests arrive without /api/v1)
+app.use("/auth", authRoutes);
+app.use("/users", userRoutes);
+app.use("/jobs", jobRoutes);
+app.use("/", applicationRoutes);
 
 module.exports = app;
