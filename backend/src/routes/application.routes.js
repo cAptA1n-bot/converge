@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.post("/jobs/:jobId/applications",authenticate,requireRole("FRESHER"),applicationController.createApplication);
 router.get("/jobs/:jobId/applications",authenticate,requireRole("FREELANCER"),applicationController.getApplicationsForJob);
+router.get("/applications/freelancer",authenticate,requireRole("FREELANCER"),applicationController.getFreelancerApplications);
 router.patch("/applications/:applicationId",authenticate,applicationController.updateApplicationStatus);
 router.get("/applications/me",authenticate,requireRole("FRESHER"),applicationController.getMyApplications);
 

@@ -1,0 +1,36 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Converge Symbol (Dark Theme Mark) -->
+  <defs>
+    <linearGradient id="converge-dark-top" x1="8" y1="11" x2="33" y2="20" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#E6F3EE" />
+    </linearGradient>
+    <linearGradient id="converge-dark-bottom" x1="8" y1="29" x2="33" y2="20" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#A7E4CD" />
+      <stop offset="100%" stop-color="#FFFFFF" />
+    </linearGradient>
+  </defs>
+
+  <!-- Top Path -->
+  <path
+    d="M 8 11.5 C 17 11.5 23 16 29 20 L 33.5 20"
+    stroke="url(#converge-dark-top)"
+    stroke-width="4.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- Bottom Path -->
+  <path
+    d="M 8 28.5 C 17 28.5 23 24 29 20 L 33.5 20"
+    stroke="url(#converge-dark-bottom)"
+    stroke-width="4.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- Convergence Node Core -->
+  <circle cx="29" cy="20" r="3.2" fill="#FFFFFF" />
+  <circle cx="29" cy="20" r="1.6" fill="#125548" />
+</svg>
+

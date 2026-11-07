@@ -49,12 +49,18 @@ const getJobs = async ({
     minBudget,
     maxBudget,
     status = "OPEN",
+    freelancerId,
 }) => {
     const filter = {};
 
     // Status
-    if (status) {
+    if (status && status !== "ALL") {
         filter.status = status;
+    }
+
+    // Freelancer filter
+    if (freelancerId) {
+        filter.freelancerId = freelancerId;
     }
 
     // Experience level
@@ -169,6 +175,7 @@ const updateJob = async (jobId, freelancerId, updates) => {
         "budget",
         "duration",
         "workType",
+        "status",
     ];
 
     const filteredUpdates = {};
@@ -177,6 +184,13 @@ const updateJob = async (jobId, freelancerId, updates) => {
         if (updates[field] !== undefined) {
             filteredUpdates[field] = updates[field];
         }
+    }
+
+    if (
+        filteredUpdates.status !== undefined &&
+        !["OPEN", "CLOSED"].includes(filteredUpdates.status)
+    ) {
+        throw new Error("Invalid status. Must be OPEN or CLOSED");
     }
 
     if (
@@ -194,7 +208,7 @@ const updateJob = async (jobId, freelancerId, updates) => {
         },
         filteredUpdates,
         {
-            new: true,
+            returnDocument: "after",
             runValidators: true,
         }
     );

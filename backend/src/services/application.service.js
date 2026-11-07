@@ -113,6 +113,10 @@ const updateApplicationStatus = async (
             );
         }
 
+        if (application.status === "WITHDRAWN") {
+            throw new Error("Cannot update a withdrawn application");
+        }
+
         if (!["SHORTLISTED", "ACCEPTED", "REJECTED"].includes(newStatus)) {
             throw new Error("Invalid application status");
         }
@@ -138,9 +142,28 @@ const getMyApplications = async (applicantId) => {
     return applications;
 };
 
+const getFreelancerApplications = async (freelancerId) => {
+    const jobs = await Job.find({ freelancerId }).select("_id title status budget duration workType experienceLevel");
+    const jobIds = jobs.map((j) => j._id);
+
+    const applications = await Application.find({ jobId: { $in: jobIds } })
+        .populate(
+            "applicantId",
+            "firstName lastName profilePicture bio skills github portfolio experienceLevel email"
+        )
+        .populate(
+            "jobId",
+            "title status budget duration workType experienceLevel freelancerId"
+        )
+        .sort({ createdAt: -1 });
+
+    return applications;
+};
+
 module.exports = {
     createApplication,
     getApplicationsForJob,
     updateApplicationStatus,
     getMyApplications,
+    getFreelancerApplications,
 }; 

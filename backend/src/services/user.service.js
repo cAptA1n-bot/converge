@@ -30,11 +30,18 @@ const updateMyProfile = async (userId, updates) => {
         }
     }
 
+    if (typeof filteredUpdates.skills === "string") {
+        filteredUpdates.skills = filteredUpdates.skills
+            .split(",")
+            .map((s) => s.trim())
+            .filter(Boolean);
+    }
+
     const user = await User.findByIdAndUpdate(
         userId,
         filteredUpdates,
         {
-            new: true,
+            returnDocument: "after",
             runValidators: true,
         }
     );
